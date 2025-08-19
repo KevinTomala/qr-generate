@@ -54,7 +54,7 @@
                 }
               ],
               "outputHashing": "all",
-              "outputPath": "docs",
+              "outputPath": "qr-generate",
               "baseHref": "/qr-generate/",
               "deployUrl": "/qr-generate/"
             },
