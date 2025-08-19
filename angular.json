@@ -28,6 +28,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/404.html",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -52,12 +53,16 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "outputPath": "docs",
+              "baseHref": "/qr-generate/",
+              "deployUrl": "/qr-generate/"
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "baseHref": "/"
             }
           },
           "defaultConfiguration": "production"
@@ -89,6 +94,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/404.html",
               {
                 "glob": "**/*",
                 "input": "public"
