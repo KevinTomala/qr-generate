@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+/* === Config === */
+$bg-deep: #0b0f14;
+$bg-tint: #101820;
+$wallpaper: 'assets/img/fondol.png';
+$logo-path: 'assets/img/LOGO-CENDCAP.png';
+
+/* Reset global */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.app-shell {
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  color: #e9eef5;
+
+  /* Orden de capas: la PRIMERA es la que queda ARRIBA.
+     Por eso los degradados deben tener alpha para no tapar el wallpaper. */
+  &.app-wallpaper {
+    background:
+      /* Capa superior: degradado lineal con alpha (overlay) */
+      linear-gradient(
+        180deg,
+        rgba(16, 24, 32, .55) 0%,   /* $bg-tint con ~55% */
+        rgba(11, 15, 20, .90) 100%  /* $bg-deep con ~90% */
+      ),
+      /* Capa intermedia: radial con alpha */
+      radial-gradient(
+        1200px 800px at 10% -10%,
+        rgba(31, 47, 68, .45) 0%,
+        rgba(11, 15, 20, 0) 55%
+      ),
+      /* Capa inferior: wallpaper */
+      url(#{$wallpaper}) center / cover no-repeat fixed;
+  }
+
+  /* Viñeta y logo (si quieres mantenerlos) */
+  &::before {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background:
+      radial-gradient(1200px 700px at 10% -10%, rgba(255,255,255,0.04), transparent 60%),
+      radial-gradient(900px 600px at 110% 50%, rgba(0,0,0,0.35), transparent 40%);
+  }
+
+  &.app-logo::after {
+    content: "";
+    position: fixed; top: 50%; right: -28vmin; transform: translateY(-50%);
+    width: 88vmin; height: 88vmin;
+    background: url(#{$logo-path}) no-repeat center / contain;
+    opacity: .12; pointer-events: none; z-index: 0;
+    mask-image: radial-gradient(circle at 30% 50%, #000 60%, transparent 85%);
+    -webkit-mask-image: radial-gradient(circle at 30% 50%, #000 60%, transparent 85%);
+    filter: drop-shadow(0 0 30px rgba(255,255,255,0.06));
+  }
+}
+
+app-root { position: relative; z-index: 1; }
+
+@media (max-width: 768px) {
+  .app-shell.app-logo::after { opacity: .06; right: -36vmin; width: 80vmin; height: 80vmin; }
+}
+
+:root{
+  --app-font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --app-headings: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body { font-family: var(--app-font); }
+h1, h2, h3, .h1, .h2, .h3 { font-family: var(--app-headings); }

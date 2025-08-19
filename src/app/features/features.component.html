@@ -1,0 +1,67 @@
+<div class="wrap">
+  <header class="header">
+    <div class="logo">QR</div>
+    <div>
+      <h1 class="h3 mb-0 text-body-emphasis">Generador de Códigos QR – Google Drive</h1>
+      <p class="text-secondary mb-0">Pega un enlace de Drive con acceso “Cualquiera con el enlace”.</p>
+    </div>
+  </header>
+
+  <!-- Contenido que crece -->
+  <main class="content">
+    <div class="grid">
+      <section class="card">
+        <label>Enlace de Google Drive</label>
+        <input class="control" type="text" [(ngModel)]="url" placeholder="https://drive.google.com/..." (keyup.enter)="generate()"/>
+        <small class="hint">Asegúrate de compartir como <b>Cualquiera con el enlace</b>.</small>
+
+        <label style="margin-top:12px;">Título (opcional)</label>
+        <input class="control" type="text" [(ngModel)]="title" placeholder="Ej.: Manual de Procedimientos CENDCAP"/>
+
+        <div class="row">
+          <div>
+            <label class="lbl">Tamaño</label>
+            <select class="control" [(ngModel)]="size">
+              <option [value]="256">256 px</option>
+              <option [value]="384">384 px</option>
+              <option [value]="512">512 px</option>
+            </select>
+          </div>
+          <div class="spacer"></div>
+          <button class="btn primary" (click)="generate()">Generar QR</button>
+          <button class="btn ghost" (click)="clear()">Limpiar</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card bg-body-tertiary border-0 h-100">
+          <div class="card-body d-flex flex-column">
+            <div class="border rounded-3 p-3 bg-white d-flex align-items-center justify-content-center" style="min-height:300px;">
+              <ng-container *ngIf="dataUrl(); else placeholder">
+                <img [src]="dataUrl()" alt="QR" class="img-fluid" style="max-width:100%; height:auto; image-rendering: pixelated;">
+              </ng-container>
+              <ng-template #placeholder>
+                <div class="text-secondary text-center py-5">Tu QR aparecerá aquí</div>
+              </ng-template>
+            </div>
+            <div class="fw-semibold text-center mt-2 text-body-emphasis" *ngIf="title">{{ title }}</div>
+          </div>
+
+          <div class="card-footer bg-transparent border-0 d-flex justify-content-center gap-2">
+            <button class="btn btn-success fw-bold" [disabled]="!dataUrl()" (click)="downloadPng()">Descargar PNG</button>
+            <button class="btn btn-outline-light" [disabled]="!dataUrl()" (click)="print()">Imprimir</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer dentro del wrap -->
+  <footer class="app-footer">
+    <div class="container">
+      <span>© {{ currentYear }} CENDCAP CIA LTDA. Todos los derechos reservados.</span>
+      <span>•</span>
+      <span>By <span class="sig-name">Katc</span></span>
+    </div>
+  </footer>
+</div>
